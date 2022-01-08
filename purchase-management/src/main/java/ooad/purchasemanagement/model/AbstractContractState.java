@@ -4,11 +4,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Entity
-public class ContractType {
+public abstract class AbstractContractState implements IContractState{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,15 +18,15 @@ public class ContractType {
 	
 	@NotBlank
 	@Size(max = 100)
-	private String contractTypeName;
+	private String contractState;
 
-	public ContractType() {
+	public AbstractContractState() {
 		super();
 	}
 
-	public ContractType(@NotBlank @Size(max = 100) String contractTypeName) {
+	public AbstractContractState(@NotBlank @Size(max = 100) String contractState) {
 		super();
-		this.contractTypeName = contractTypeName;
+		this.contractState = contractState;
 	}
 
 	public int getId() {
@@ -35,15 +37,13 @@ public class ContractType {
 		this.id = id;
 	}
 
-	public String getContractTypeName() {
-		return contractTypeName;
+	public String getContractState() {
+		return contractState;
 	}
 
-	public void setContractTypeName(String contractTypeName) {
-		this.contractTypeName = contractTypeName;
+	public void setContractState(String contractState) {
+		this.contractState = contractState;
 	}
-	
-	
 	
 	
 

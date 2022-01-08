@@ -19,15 +19,15 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
-@MappedSuperclass
-//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Document {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int Id;
 	
-	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+	@ManyToOne(cascade = {CascadeType.DETACH,  CascadeType.REFRESH})
 	@JoinColumn(name = "supplier_id")
 	private Supplier supplier;
 	

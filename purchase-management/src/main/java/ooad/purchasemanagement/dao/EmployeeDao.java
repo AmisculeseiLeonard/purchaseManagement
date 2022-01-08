@@ -12,11 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import ooad.purchasemanagement.daoService.EmployeeServiceImpl;
 import ooad.purchasemanagement.model.Employee;
 
 @Transactional
 @Repository("employee")
 public class EmployeeDao implements Dao<Employee> {
+
 	
 	@Autowired
 	private EntityManager entityManager;

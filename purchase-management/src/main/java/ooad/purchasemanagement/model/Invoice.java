@@ -17,7 +17,7 @@ public class Invoice extends Document{
 	@OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL)
 	private List<InvoiceLine> invoiceLines;
 	
-	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
 	@JoinColumn(name = "payment_method_id")
 	private PaymentMethod paymentMethod;
 

@@ -22,11 +22,11 @@ public class OrderLine {
 	@Positive
 	private Double pret;
 	
-	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,CascadeType.PERSIST, CascadeType.REFRESH})
+	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
 	@JoinColumn(name = "order_id")
 	private OrderDoc order;
 	
-	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,CascadeType.PERSIST, CascadeType.REFRESH})
+	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
 	@JoinColumn(name = "product_id")
 	private Product product;
 

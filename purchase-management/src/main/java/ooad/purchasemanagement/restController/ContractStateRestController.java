@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ooad.purchasemanagement.dao.Dao;
 import ooad.purchasemanagement.exception.ResourceNotFoundException;
-import ooad.purchasemanagement.model.ContractState;
+import ooad.purchasemanagement.model.AbstractContractState;
 
 
 @RestController
@@ -21,16 +21,16 @@ public class ContractStateRestController {
 	
 	@Autowired
 	@Qualifier("contract_state")
-	private Dao<ContractState> contractStateRepository;
+	private Dao<AbstractContractState> contractStateRepository;
 	
 	@GetMapping("/contract-states")
-	public List<ContractState> getAllContractStates(){
+	public List<AbstractContractState> getAllContractStates(){
 		return contractStateRepository.getAll();
 	}
 	
 	@GetMapping("contract-states/{id}")
-	public ResponseEntity<ContractState> getContractStateById(@PathVariable int id) {
-		ContractState contractState = contractStateRepository.get(id).
+	public ResponseEntity<AbstractContractState> getContractStateById(@PathVariable int id) {
+		AbstractContractState contractState = contractStateRepository.get(id).
 				orElseThrow(() -> new ResourceNotFoundException("Contract state with id: " + id + " doesn't exist"));
 		return ResponseEntity.ok(contractState);
 	}

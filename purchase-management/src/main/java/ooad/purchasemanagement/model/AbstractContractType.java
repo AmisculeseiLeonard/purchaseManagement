@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Entity
-public class ContractState {
+public abstract class AbstractContractType implements IContractType{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,15 +16,15 @@ public class ContractState {
 	
 	@NotBlank
 	@Size(max = 100)
-	private String contractState;
+	private String contractTypeName;
 
-	public ContractState() {
+	public AbstractContractType() {
 		super();
 	}
 
-	public ContractState(@NotBlank @Size(max = 100) String contractState) {
+	public AbstractContractType(@NotBlank @Size(max = 100) String contractTypeName) {
 		super();
-		this.contractState = contractState;
+		this.contractTypeName = contractTypeName;
 	}
 
 	public int getId() {
@@ -35,13 +35,15 @@ public class ContractState {
 		this.id = id;
 	}
 
-	public String getContractState() {
-		return contractState;
+	public String getContractTypeName() {
+		return contractTypeName;
 	}
 
-	public void setContractState(String contractState) {
-		this.contractState = contractState;
+	public void setContractTypeName(String contractTypeName) {
+		this.contractTypeName = contractTypeName;
 	}
+	
+	
 	
 	
 

@@ -14,13 +14,13 @@ import javax.validation.constraints.Size;
 @Entity
 public class Contract extends Document{
 	
-	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
 	@JoinColumn(name = "contract_state_id")
-	private ContractState contractState;
+	private AbstractContractState contractState;
 	
-	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
 	@JoinColumn(name = "contract_type_id")
-	private ContractType contractType;
+	private AbstractContractType contractType;
 	
 	@Temporal(TemporalType.DATE)
 	@Future
@@ -39,20 +39,24 @@ public class Contract extends Document{
 		this.endDate = endDate;
 		this.description = description;
 	}
+	
+	public void showCurrentState() {
+		contractState.showCurrentState();
+	}
 
-	public ContractState getContractState() {
+	public AbstractContractState getContractState() {
 		return contractState;
 	}
 
-	public void setContractState(ContractState contractState) {
+	public void setContractState(AbstractContractState contractState) {
 		this.contractState = contractState;
 	}
 
-	public ContractType getContractType() {
+	public AbstractContractType getContractType() {
 		return contractType;
 	}
 
-	public void setContractType(ContractType contractType) {
+	public void setContractType(AbstractContractType contractType) {
 		this.contractType = contractType;
 	}
 

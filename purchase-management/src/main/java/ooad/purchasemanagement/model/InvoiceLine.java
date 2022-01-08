@@ -23,11 +23,11 @@ public class InvoiceLine {
 	@PositiveOrZero
 	private Double pret;
 	
-	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,CascadeType.PERSIST, CascadeType.REFRESH})
+	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
 	@JoinColumn(name = "invoice_id")
 	private Invoice invoice;
 	
-	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,CascadeType.PERSIST, CascadeType.REFRESH})
+	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
 	@JoinColumn(name = "product_id")
 	private Product product;
 	

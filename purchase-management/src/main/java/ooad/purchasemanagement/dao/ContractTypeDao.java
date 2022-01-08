@@ -9,38 +9,38 @@ import javax.transaction.Transactional;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import ooad.purchasemanagement.model.ContractType;
+import ooad.purchasemanagement.model.AbstractContractType;
 
 @Transactional
 @Repository("contract_type")
-public class ContractTypeDao implements Dao<ContractType>{
+public class ContractTypeDao implements Dao<AbstractContractType>{
 	
 	@Autowired
 	private EntityManager entityManager;
 
 	
 	@Override
-	public List<ContractType> getAll() {
+	public List<AbstractContractType> getAll() {
 		Session session = entityManager.unwrap(Session.class);
 		
-		List<ContractType> contractTypes = session.createQuery("from ContractType", ContractType.class).getResultList();
+		List<AbstractContractType> contractTypes = session.createQuery("from ContractType", AbstractContractType.class).getResultList();
 		
 		return contractTypes;
 	}
 	
 	@Override
-	public Optional<ContractType> get(int id) {
+	public Optional<AbstractContractType> get(int id) {
 		Session session = entityManager.unwrap(Session.class);
 		
-		Optional<ContractType> contractType = Optional.ofNullable(session
-				.createQuery("Select e from ContractType e where e.id = '" + id + "'", ContractType.class)
+		Optional<AbstractContractType> contractType = Optional.ofNullable(session
+				.createQuery("Select e from ContractType e where e.id = '" + id + "'", AbstractContractType.class)
 				.getSingleResult());
 		
 		return contractType;
 	}
 
 	@Override
-	public void save(ContractType t) {
+	public void save(AbstractContractType t) {
 		Session session = entityManager.unwrap(Session.class);
 		session.save(t);
 		
@@ -48,16 +48,16 @@ public class ContractTypeDao implements Dao<ContractType>{
 	}
 
 	@Override
-	public void delete(ContractType t) {
+	public void delete(AbstractContractType t) {
 		Session session = entityManager.unwrap(Session.class);
 		session.delete(t);
 		
 	}
 
 	@Override
-	public ContractType update(ContractType t) {
+	public AbstractContractType update(AbstractContractType t) {
 		Session session = entityManager.unwrap(Session.class);
-		ContractType  contractType = (ContractType) session.merge(t);
+		AbstractContractType  contractType = (AbstractContractType) session.merge(t);
 		return contractType;
 		
 	}

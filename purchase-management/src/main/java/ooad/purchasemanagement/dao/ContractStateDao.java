@@ -10,39 +10,39 @@ import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import ooad.purchasemanagement.model.ContractState;
+import ooad.purchasemanagement.model.AbstractContractState;
 
 
 @Transactional
 @Repository("contract_state")
-public class ContractStateDao implements Dao<ContractState>{
+public class ContractStateDao implements Dao<AbstractContractState>{
 	
 	@Autowired
 	private EntityManager entityManager;
 
 	
 	@Override
-	public List<ContractState> getAll() {
+	public List<AbstractContractState> getAll() {
 		Session session = entityManager.unwrap(Session.class);
 		
-		List<ContractState> contractStates = session.createQuery("from ContractState", ContractState.class).getResultList();
+		List<AbstractContractState> contractStates = session.createQuery("from ContractState", AbstractContractState.class).getResultList();
 		
 		return contractStates;
 	}
 	
 	@Override
-	public Optional<ContractState> get(int id) {
+	public Optional<AbstractContractState> get(int id) {
 		Session session = entityManager.unwrap(Session.class);
 		
-		Optional<ContractState> contractState = Optional.ofNullable(session
-				.createQuery("Select e from ContractState e where e.id = '" + id + "'", ContractState.class)
+		Optional<AbstractContractState> contractState = Optional.ofNullable(session
+				.createQuery("Select e from ContractState e where e.id = '" + id + "'", AbstractContractState.class)
 				.getSingleResult());
 		
 		return contractState;
 	}
 
 	@Override
-	public void save(ContractState t) {
+	public void save(AbstractContractState t) {
 		Session session = entityManager.unwrap(Session.class);
 		session.save(t);
 		
@@ -50,16 +50,16 @@ public class ContractStateDao implements Dao<ContractState>{
 	}
 
 	@Override
-	public void delete(ContractState t) {
+	public void delete(AbstractContractState t) {
 		Session session = entityManager.unwrap(Session.class);
 		session.delete(t);
 		
 	}
 
 	@Override
-	public ContractState update(ContractState t) {
+	public AbstractContractState update(AbstractContractState t) {
 		Session session = entityManager.unwrap(Session.class);
-		ContractState  contractState = (ContractState) session.merge(t);
+		AbstractContractState  contractState = (AbstractContractState) session.merge(t);
 		return contractState;
 		
 	}

@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ooad.purchasemanagement.dao.Dao;
+import ooad.purchasemanagement.daoService.EmployeeService;
+import ooad.purchasemanagement.daoService.EmployeeServiceImpl;
 import ooad.purchasemanagement.exception.ResourceNotFoundException;
 import ooad.purchasemanagement.model.Employee;
 
@@ -27,29 +29,28 @@ import ooad.purchasemanagement.model.Employee;
 public class EmployeeRestController {
 	
 	@Autowired
-	@Qualifier("employee")
-	private Dao<Employee> employeeRepository;
+	private EmployeeServiceImpl employeeService;
 	
 	@GetMapping("/employees")
 	public List<Employee> getAllEmployees(){
-		return employeeRepository.getAll();
+		return employeeService.getAll();
 	}
 	
 	@GetMapping("employees/{id}")
 	public ResponseEntity<Employee> getEmployeeById(@PathVariable int id) {
-		Employee employee = employeeRepository.get(id).
+		Employee employee = employeeService.get(id).
 				orElseThrow(() -> new ResourceNotFoundException("Employee with id: " + id + " doesn't exist"));
 		return ResponseEntity.ok(employee);
 	}
 	
 	@PostMapping("/employees")
 	public void createEmployee(@RequestBody Employee employee) {
-		employeeRepository.save(employee);
+		employeeService.save(employee);
 	}
 	
 	@PutMapping("/employees/{id}")
 	public ResponseEntity<Employee> updateEmployee(@PathVariable int id,@RequestBody @Valid Employee employeeDetails) {
-		Employee employee = employeeRepository.get(id).
+		Employee employee = employeeService.get(id).
 				orElseThrow(() -> new ResourceNotFoundException("Employee with id: " + id + " doesn't exist"));
 		
 		employee.setId(employeeDetails.getId());
@@ -60,17 +61,17 @@ public class EmployeeRestController {
 		employee.setPhoneNumber(employeeDetails.getPhoneNumber());
 		employee.setRole(employeeDetails.getRole());
 		
-		Employee updatedEmployee = employeeRepository.update(employee);
+		Employee updatedEmployee = employeeService.update(employee);
 		return ResponseEntity.ok(updatedEmployee);
 		
 	}
 	
 	@DeleteMapping("/employees/{id}")
 	public ResponseEntity<Map<String, Boolean>> deleteEmployee(@PathVariable int id) {
-		Employee employee = employeeRepository.get(id).
+		Employee employee = employeeService.get(id).
 				orElseThrow(() -> new ResourceNotFoundException("Employee with id: " + id + " doesn't exist"));
 		
-		employeeRepository.delete(employee);
+		employeeService.delete(employee);
 		Map<String, Boolean> response = new HashMap<String, Boolean>();
 		response.put("deleted", Boolean.TRUE);
 		return ResponseEntity.ok(response);
